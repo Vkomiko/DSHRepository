@@ -9,6 +9,8 @@ import (
 	"unsafe"
 	"github.com/go-gl/gl/v4.6-core/gl"
 	"fmt"
+	"time"
+	"math"
 )
 
 //TODO: sciter_sdk_patch.go:
@@ -72,7 +74,7 @@ func main() {
 	}
 
 	window.MakeContextCurrent()
-	// glfw.SwapInterval(1)
+	glfw.SwapInterval(0)  // TODO !!!!!!!!!!!!
 
 	// Initialize Glow
 	if err := gl.Init(); err != nil {
@@ -115,24 +117,46 @@ func main() {
 	}
 	// END SCITER
 
+	//timeMargin := 0.01 // TODO
+	refreshPeriod := 1. / 65.
+	fSec := float64(time.Second)
+	t0 := glfw.GetTime()
+	t1 := glfw.GetTime()
+	i_frm := 0
+
+
 	for !window.ShouldClose() {
+
 		// Do OpenGL stuff.
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.STENCIL_BUFFER_BIT)
 
 		// SCITER
-		pc := w.XMsgPaint(back_layer,false)
-		w.ProcX(pc)
+		//pc := w.XMsgPaint(back_layer,false)
+		//w.ProcX(pc)
+		back_layer.Type()
 		// END SCITER
 
 		//gl.Disable(gl.BLEND)
 		// SCITER
 		// draw foreground layer
 		w.ProcX(w.XMsgPaint(fore_layer,true))
+		//fore_layer.Type()
 		// END SCITER
 
-		//gl.Flush()
+		gl.Flush()
+
+		t1 = math.Mod(glfw.GetTime() - t1, refreshPeriod)
+		time.Sleep(time.Duration(t1 * fSec))
 
 		window.SwapBuffers()
+		t1 = glfw.GetTime()
+
 		glfw.PollEvents()
+
+
+		i_frm ++
+		if i_frm % 1000 == 0 {
+			fmt.Println(float64(i_frm) / (glfw.GetTime() - t0))
+		}
 	}
 }

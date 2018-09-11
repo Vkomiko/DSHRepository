@@ -1,0 +1,15 @@
+
+media stream slice(MSS): I帧打头到下一个I帧的一系列packet, 单独可解压(做到了吗? 显然还需要codec信息)
+
+	帧等间隔:
+		delta_pfs (VarInt) | packet size (VarUint) | data (Byte[]) || delta_pfs (VarInt) | packet size | data || ...
+
+	delta_pfs 是下一个packet的pfs 减 上一个packet的pfs
+	delta_pfs == 0: I Frame
+	pfs = pts / 帧间隔
+
+media stream:
+	slice array:
+		slice_len[] 
+	sub_stream:
+

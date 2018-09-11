@@ -1,0 +1,199 @@
+/// decFmt.OpenInput
+### Buffer size: 1048576
+### - Read 1048576 bytes
+@@@ Seek to: 0, Whence: 65536
+@@@ - Now Position: 1048576, Seek file size: 664447470
+### Buffer size: 1048576
+### - Read 1048576 bytes
+@@@ Seek to: 0, Whence: 65536
+@@@ - Now Position: 2097152, Seek file size: 664447470
+
+/// decFmt.FindStreamInfo
+### Buffer size: 1048576
+### - Read 1048576 bytes
+@@@ Seek to: 0, Whence: 65536
+@@@ - Now Position: 3145728, Seek file size: 664447470
+@@@ Seek to: 0, Whence: 65536
+@@@ - Now Position: 3145728, Seek file size: 664447470
+@@@ Seek to: 0, Whence: 65536
+@@@ - Now Position: 3145728, Seek file size: 664447470
+
+/// decFmt.FindBestStream
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+tigerjang@DESKTOP-5AMK5M1 MINGW64 /e/Work/project/bt
+$ dlv --listen=:2345 --headless=true --api-version=2 exec ./hw_decode.exe
+API server listening at: [::]:2345
+### Buffer size: 131072
+### - Read 131072 bytes
+@@@ Seek to: 0, Whence: 65536
+@@@ - Now Position: 131072, Seek file size: 664447470
+### Buffer size: 131072
+### - Read 131072 bytes
+### Buffer size: 131072
+### - Read 131072 bytes
+### Buffer size: 131072
+### - Read 131072 bytes
+### Buffer size: 131072
+### - Read 131072 bytes
+### Buffer size: 131072
+### - Read 131072 bytes
+### Buffer size: 131072
+### - Read 131072 bytes
+### Buffer size: 131072
+### - Read 131072 bytes
+### Buffer size: 261449
+### - Read 261449 bytes
+### Buffer size: 131072
+### - Read 131072 bytes
+### Buffer size: 131072
+### - Read 131072 bytes
+### Buffer size: 227044
+### - Read 227044 bytes
+### Buffer size: 131072
+### - Read 131072 bytes
+### Buffer size: 131072
+### - Read 131072 bytes
+@@@ Seek to: 0, Whence: 65536
+@@@ - Now Position: 2061357, Seek file size: 664447470
+### Buffer size: 131072
+### - Read 131072 bytes
+@@@ Seek to: 0, Whence: 65536
+@@@ - Now Position: 2192429, Seek file size: 664447470
+@@@ Seek to: 0, Whence: 65536
+@@@ - Now Position: 2192429, Seek file size: 664447470
+@@@ Seek to: 0, Whence: 65536
+@@@ - Now Position: 2192429, Seek file size: 664447470
+2018/02/21 11:15:58 Encoder name: mjpeg
+2018/02/21 11:15:58 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:15:58 --- Current TimeStamp: 200
+@@@ Seek to: 3309188, Whence: 0
+@@@ - Return Pos: 3309188
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:16:35 Encoder name: mjpeg
+2018/02/21 11:16:35 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:16:35 --- Current TimeStamp: 124000
+@@@ Seek to: 13827779, Whence: 0
+@@@ - Return Pos: 13827779
+### Buffer size: 131072
+### - Read 131072 bytes
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:16:53 Encoder name: mjpeg
+2018/02/21 11:16:53 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:16:53 --- Current TimeStamp: 236500
+@@@ Seek to: 39976666, Whence: 0
+@@@ - Return Pos: 39976666
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:17:53 Encoder name: mjpeg
+2018/02/21 11:17:53 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:17:53 --- Current TimeStamp: 352450
+@@@ Seek to: 62094703, Whence: 0
+@@@ - Return Pos: 62094703
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:04 Encoder name: mjpeg
+2018/02/21 11:18:04 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:04 --- Current TimeStamp: 474350
+@@@ Seek to: 77978543, Whence: 0
+@@@ - Return Pos: 77978543
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:05 Encoder name: mjpeg
+2018/02/21 11:18:05 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:05 --- Current TimeStamp: 586850
+@@@ Seek to: 97046394, Whence: 0
+@@@ - Return Pos: 97046394
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:05 Encoder name: mjpeg
+2018/02/21 11:18:05 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:05 --- Current TimeStamp: 711750
+@@@ Seek to: 112174397, Whence: 0
+@@@ - Return Pos: 112174397
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:06 Encoder name: mjpeg
+2018/02/21 11:18:06 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:06 --- Current TimeStamp: 818550
+@@@ Seek to: 130232241, Whence: 0
+@@@ - Return Pos: 130232241
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:16 Encoder name: mjpeg
+2018/02/21 11:18:16 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:16 --- Current TimeStamp: 943500
+@@@ Seek to: 148450982, Whence: 0
+@@@ - Return Pos: 148450982
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:16 Encoder name: mjpeg
+2018/02/21 11:18:16 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:16 --- Current TimeStamp: 1060200
+@@@ Seek to: 168952697, Whence: 0
+@@@ - Return Pos: 168952697
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:17 Encoder name: mjpeg
+2018/02/21 11:18:17 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:17 --- Current TimeStamp: 1172550
+@@@ Seek to: 188653415, Whence: 0
+@@@ - Return Pos: 188653415
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:24 Encoder name: mjpeg
+2018/02/21 11:18:24 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:24 --- Current TimeStamp: 1292050
+@@@ Seek to: 207399994, Whence: 0
+@@@ - Return Pos: 207399994
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:24 Encoder name: mjpeg
+2018/02/21 11:18:25 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:25 --- Current TimeStamp: 1404500
+@@@ Seek to: 229121549, Whence: 0
+@@@ - Return Pos: 229121549
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:25 Encoder name: mjpeg
+2018/02/21 11:18:25 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:25 --- Current TimeStamp: 1528600
+@@@ Seek to: 247528445, Whence: 0
+@@@ - Return Pos: 247528445
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:26 Encoder name: mjpeg
+2018/02/21 11:18:26 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:26 --- Current TimeStamp: 1641100
+@@@ Seek to: 265772601, Whence: 0
+@@@ - Return Pos: 265772601
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:26 Encoder name: mjpeg
+2018/02/21 11:18:26 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:26 --- Current TimeStamp: 1753600
+@@@ Seek to: 288872822, Whence: 0
+@@@ - Return Pos: 288872822
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:27 Encoder name: mjpeg
+2018/02/21 11:18:27 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:27 --- Current TimeStamp: 1876950
+@@@ Seek to: 311106340, Whence: 0
+@@@ - Return Pos: 311106340
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:27 Encoder name: mjpeg
+2018/02/21 11:18:28 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:28 --- Current TimeStamp: 1989450
+@@@ Seek to: 331440750, Whence: 0
+@@@ - Return Pos: 331440750
+### Buffer size: 131072
+### - Read 131072 bytes
+2018/02/21 11:18:28 Encoder name: mjpeg
+2018/02/21 11:18:28 Failed to send frame: Resource temporarily unavailable
+2018/02/21 11:18:28 --- Current TimeStamp: 2101900
+
