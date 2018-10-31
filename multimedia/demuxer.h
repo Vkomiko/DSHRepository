@@ -29,16 +29,23 @@ int ff_new_demuxer (FFDemuxer ** ret, const char * uri, FFIOContext * io_ctx);
 void ff_free_demuxer (FFDemuxer * d);
 int ff_demuxer_get_codec_paras (FFDemuxer * d, AVCodecParameters ** ret, unsigned int stream_id);
 
+typedef struct FFCodecCtxOpaque {
+    enum AVPixelFormat hw_pix_fmt;
+} FFCodecCtxOpaque;
+
 typedef struct FFDecoder {
     AVCodecContext * avc_ctx;
+    FFCodecCtxOpaque * ctx_opaque;
+    int is_hw;
+    enum AVPixelFormat hw_pix_fmt;
+    AVBufferRef * hw_device_ctx;
 } FFDecoder;
 
-int ff_new_decoder (FFDecoder ** ret, AVCodecParameters * codec_paras);
+int ff_new_decoder (FFDecoder ** ret, AVCodecParameters * codec_paras, const char * device_type);
 void ff_free_decoder (FFDecoder * d);
 
 
-static const int GO_AVERROR(int e)
-{
+static const int GO_AVERROR(int e) {
   return AVERROR(e);
 }
 

@@ -13,6 +13,7 @@ import (
 	"log"
 	"runtime"
 	"syscall"
+	"time"
 	"unsafe"
 )
 
@@ -223,15 +224,46 @@ func (f *Frame) UnRef () {
 	C.av_frame_unref(f.avFrame)
 }
 
+func (f *Frame) ToSWFrame (frm *Frame) (*Frame, error) {
+	if frm == nil {
+		var err error
+		if frm, err = NewFrame(); err != nil {
+			return nil, err
+		}
+	} else {
+		frm.UnRef()  // FixMe  Here or outside ?
+	}
+
+	if rc := C.av_hwframe_transfer_data(frm.avFrame, f.avFrame, 0); rc < 0 {
+		return nil, FFmpegError.New(rc, "Copy frame from HW to SW Error.")
+	}
+	return frm, nil
+}
+
+func (f *Frame) IsHWFrame (ctx * FFmpegDecoder) bool {
+	if (ctx.ffDecoder.is_hw > 0) && (int(f.avFrame.format) == int(ctx.ffDecoder.hw_pix_fmt)) {
+		return true
+	}
+	return false
+}
+
 //----------------------------------------------------------------------------------------------------------------------
 
 type FFmpegDecoder struct {
 	ffDecoder *C.FFDecoder
 }
 
-func NewFFmpegDecoder(codec_paras *CodecParameters) (*FFmpegDecoder, error) {
+func NewFFmpegDecoder(codec_paras *CodecParameters, deviceType string) (*FFmpegDecoder, error) {
+	var cDeviceType *C.char
+	if deviceType == "" {
+		cDeviceType = (*C.char)(unsafe.Pointer(nil))
+	} else {
+		cDeviceType = C.CString(deviceType)
+		defer C.free(unsafe.Pointer(cDeviceType))
+	}
+
 	var ffDecoder *C.FFDecoder
-	if ret := C.ff_new_decoder(&ffDecoder, codec_paras.avCodecPara); ret < 0 {
+	if ret := C.ff_new_decoder(&ffDecoder, codec_paras.avCodecPara, cDeviceType); ret < 0 {
 		return nil, errors.New("hhhhhh") // TODO
 	}
 
@@ -273,9 +305,6 @@ func (d *FFmpegDecoder) Pop (frm *Frame) (*Frame, error) {
 }
 
 func main()  {
-	cDeviceType := C.CString("d3d11va")  // TODO
-	defer C.free(unsafe.Pointer(cDeviceType))
-
 	uri := ""
 
 	demuxer, _ := NewFFmpegDemuxer(uri)
@@ -284,11 +313,8 @@ func main()  {
 	paras := demuxer.GetCodecParameters(0)
 	fmt.Println(paras)
 
-	decoder, _ := NewFFmpegDecoder(paras)
-	fmt.Println(decoder)
-
-	fmt.Println(demuxer.GetBestStream(MediaTypeAudio))
-	fmt.Println(demuxer.BestStreamsMap())
+	decoder, err := NewFFmpegDecoder(paras, "") // d3d11va, dxva2
+	fmt.Println(err)
 
 	packet, err := NewPacket()
 	if err != nil {
@@ -304,9 +330,17 @@ func main()  {
 		fmt.Println(err)
 	}
 
+	var swFrame *Frame
+	if swFrame, err = NewFrame(); err != nil{
+		fmt.Println(err)
+	}
+
 	var pkt *Packet
 	var frm *Frame
-	for i := 0; i < 50; i ++ {
+
+	start := time.Now()
+	frameCount := 0
+	for i := 0; i < 1000; i ++ {
 		pkt = nil
 		for pkt == nil {
 			if pkt, err = demuxer.PickPacket(packet, fil); err != nil {
@@ -325,10 +359,21 @@ func main()  {
 					log.Fatal(err)
 				}
 			}
-			a := frm
-			fmt.Println(a, 2333)
+			if frm != nil {
+				if frm.IsHWFrame(decoder) {
+					if frm, err = frm.ToSWFrame(swFrame); err != nil {
+						log.Fatal(err)
+					}
+				}
+				frameCount ++
+			}
+			//a := frm
+			//fmt.Println(a, 2333)
 		}
 	}
 
-
+	elapsed := time.Since(start)
+	log.Printf("took %s", elapsed)
+	log.Printf("FFF %d", frameCount)
+	fmt.Println(swFrame)
 }
