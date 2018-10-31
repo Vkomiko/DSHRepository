@@ -1,0 +1,42 @@
+
+
+
+AVFormatContext  --> XXX
+AVStream --> XXX
+
+
+best_stream_id = av_find_best_stream(input_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, &decoder, 0)
+stream = input_ctx->streams[best_stream_id];
+AVCodecParameters *par = stream->codecpar;
+avcodec_find_decoder(par->codec_id);
+
+-------------------------------
+file_name --avformat_open_input()--> AVFormatContext
+AVFormatContext --avformat_find_stream_info()--> AVFormatContext.streams[]
+AVFormatContext, enum_AVMediaType --av_find_best_stream()--> best_stream_id
+stream.codecpar --> AVCodecParameters
+
+------------------------------
+# AVCodecParameters --avcodec_find_decoder()--> AVCodec
+type_name ---av_hwdevice_find_type_by_name()--> enum_AVHWDeviceType
+AVCodec, enum_AVHWDeviceType --avcodec_get_hw_config()--> AVCodecHWConfig
+AVCodecHWConfig.pix_fmt --> AVPixelFormat
+
+# AVCodec --avcodec_alloc_context3()--> AVCodecContext
+# AVCodecParameters ==avcodec_parameters_to_context()==> AVCodecContext
+SET func get_format ==> AVCodecContext  ==> AVPixelFormat 
+
+# av_opt_set() ............
+
+enum_AVHWDeviceType ==av_hwdevice_ctx_create()==> AVCodecContext.hw_device_ctx
+# AVCodec ==avcodec_open2==> AVCodecContext
+---------------------------------
+AVFormatContext --av_read_frame()-->AVPacket 
+
+
+demuxer ->:
+    n_stream uint
+    best_stream_id  map [enum_AVMediaType] uint \\ video $ audio & subtitle)
+    codecpar AVCodecParameters
+
+    read_packet(need [] int) AVPacket

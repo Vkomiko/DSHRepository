@@ -1,10 +1,10 @@
 package env
 
 import (
-	"testing"
+	"fmt"
 	"reflect"
 	"runtime"
-	"fmt"
+	"testing"
 )
 
 func FuncTest(t *testing.T, f interface{}, args...interface{}) string {
@@ -37,16 +37,19 @@ func FuncTest(t *testing.T, f interface{}, args...interface{}) string {
 	return str
 }
 
-func TestParseEnvVarExp(t *testing.T) {
-	t.Log(FuncTest(t, ParseEnvVarExp, "PATH<sys, user=tiger> += $$PF_ROOT/envs/go/bin"))
-	t.Log(FuncTest(t, ParseEnvVarExp, "PATH<sys> += $$PF_ROOT/envs/go/bin"))
-}
+//func TestParseEnvVarExp(t *testing.T) {
+//	t.Log(FuncTest(t, ParseEnvVarExp, "PATH<sys, user=tiger> += $$PF_ROOT/envs/go/bin"))
+//	t.Log(FuncTest(t, ParseEnvVarExp, "PATH<sys> += $$PF_ROOT/envs/go/bin"))
+//}
 
 func TestNewEnvConfig(t *testing.T) {
 	t.Log(FuncTest(t, NewEnvConfig, "env_config_win.yaml"))
 }
 
 func TestInstall(t *testing.T) {
-	cfg, _ := NewEnvConfig("env_config_win.yaml")
-	t.Log(FuncTest(t, Install, cfg))
+	if cfg, err := NewEnvConfig("env_config_win.yaml"); err == nil {
+		t.Log(FuncTest(t, Install, cfg))
+	} else {
+		t.Log(err)
+	}
 }

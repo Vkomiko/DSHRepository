@@ -1,18 +1,22 @@
-Platform: windows
-Macros:
-    - PF_ROOT = $$/win
+EnvName: Tiger's Develop Environment
+Platform: WINDOWS
+EnvRoot: ENV_CFG_VOLUME
+TempDef:
+  - PF_ROOT = $$ENV_ROOT/win
 EnvVars:
-    # GoLang:
-    - GOROOT<sys> = $$PF_ROOT/envs/go
-    - PATH<sys> += $$PF_ROOT/envs/go/bin
-    - GOPATH = $$/share/libs/go
-    - PATH += $GOPATH/bin  # %GOPATH%\bin
+  # GoLang:
+  - GOROOT<sys> = $$PF_ROOT/envs/go
+  - PATH<sys> += $$PF_ROOT/envs/go/bin
+  - GOPATH = $$/share/libs/go
+  - PATH += $GOPATH/bin  # %GOPATH%\bin
 
-    # Miniconda:
-    - PATH += $$PF_ROOT/miniconda3
-    - PATH += $$PF_ROOT/miniconda3/Scripts
-    - PATH += $$PF_ROOT/miniconda3/Library/bin
-    #- PATH<sys>+=D:\Python\Windows Kits\10\Windows Performance Toolkit\
+  # Miniconda:
+  - PATH += $$PF_ROOT/miniconda3
+  - PATH += $$PF_ROOT/miniconda3/Scripts
+  - PATH += $$PF_ROOT/miniconda3/Library/bin
 
+  # NgSolve
+  - NETGENDIR = T:\win\libs\ngsolve\bin
+  - PATH += T:\win\libs\ngsolve\bin
 # D:\Tools\Work\Git\cmd !!!!!!!!!!!!!!!!!!!!!!!!!!!
 

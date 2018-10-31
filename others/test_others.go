@@ -32,4 +32,10 @@ func main()  {
 		fmt.Printf("%#v\n", aaa)
 	}
 
+	tmpDefReg := regexp.MustCompile(`\$\$(\w+|{\w+})`)
+	tmpDefReg.ReplaceAllStringFunc("xxx$${PF_ROOT}/miniconda3/$$aaa/Scripts", func(s string) string {
+		fmt.Println(strings.Trim(s, "${} "))
+		return ""
+	})
+
 }

@@ -1,23 +1,59 @@
 package utils
 
-type DSHHRepError struct {
-	msg string
-	err error
-	typ string
+import "fmt"
+
+type ErrorType int
+
+const (
+	Error ErrorType = iota
+	EOFError
+	OverflowError
+	InitializeError
+)
+
+//go:generate T:\win\bin\stringer -type=ErrorType,ControlMsg -output types_string.go
+
+type StdError interface {
+	error
+	Code () int
+	Type () int
 }
 
-func Error(msg string) *DSHHRepError {
-	return &DSHHRepError{msg:msg}
+type DSHStdError struct {
+	Ecode int
+	Etyp int
+	Emsg string
 }
 
-func LibavError(avErr error, msg string) *DSHHRepError {
-	return &DSHHRepError{msg:msg, err:avErr, typ:"libav"}
+func (t ErrorType) New(code int, msg string) error {
+	return &DSHStdError{code, int(t), msg}
 }
 
-func (e *DSHHRepError) Error() string {
-	if e.err == nil {
-		return e.msg
-	}
-	return e.msg + "\n    [" + e.typ + "] " + e.err.Error()
+func (e *DSHStdError) Error() string {
+	return fmt.Sprintf("%s [%d] %s", ErrorType(e.Etyp).String(), e.Ecode, e.Emsg)
 }
 
+func (e *DSHStdError) Code() int {
+	return e.Ecode
+}
+
+func (e *DSHStdError) Type() int {
+	return e.Etyp
+}
+
+func (e *DSHStdError) Msg() string {
+	return e.Emsg
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+type ControlMsg int
+
+const (
+	CMsgEOF ControlMsg = iota
+	CMsgStarve
+)
+
+func (m ControlMsg) Error() string {
+	return fmt.Sprintf("[Control Message] %s", m.String())
+}
